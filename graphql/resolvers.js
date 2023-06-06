@@ -12,8 +12,7 @@ module.exports = {
     Mutation: {
         async createUser(_, {userInput: {name}}){
             const createdUser = new User({
-                name: name,
-                age: age
+                name: name
             });
 
             const res = await createdUser.save();
@@ -25,7 +24,7 @@ module.exports = {
             },
 
         async deleteUser(_, {ID}){
-           const wasDeletd = (await User.deleteOne({_id: ID})).deleteCount;
+           const wasDeletd = (await User.deleteOne({_id: ID})).deletedCount;
            return wasDeletd;
         },
 

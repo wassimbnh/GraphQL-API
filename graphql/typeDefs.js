@@ -1,6 +1,6 @@
 const { gql } = require("apollo-server");
 
-module.exports = gql`
+const typeDefs = gql`
     type User {
         name: String
         age: Int
@@ -21,3 +21,5 @@ module.exports = gql`
         editUser(ID: ID!, userInput: UserInput): Boolean
     }
 `;
+
+module.exports = typeDefs;
