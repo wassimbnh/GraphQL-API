@@ -1,4 +1,4 @@
-const User = require('../models/User');
+const User = require('../models/userModel');
 
 module.exports = {
     Query: {
@@ -10,6 +10,28 @@ module.exports = {
         }
     },
     Mutation: {
+        async createUser(_, {userInput: {name}}){
+            const createdUser = new User({
+                name: name,
+                age: age
+            });
 
+            const res = await createdUser.save();
+            console.log(res._doc);
+            return {
+                id: res.id,
+                ...res._doc 
+            }
+            },
+
+        async deleteUser(_, {ID}){
+           const wasDeletd = (await User.deleteOne({_id: ID})).deleteCount;
+           return wasDeletd;
+        },
+
+        async editUser(_,{ID, userInput:{name,age}}){
+            const wasEdited = (await User.updateOne({_id: ID}, {name: name, age: age})).modifiedCount;
+            return wasEdited;
+        }
     }
 }
